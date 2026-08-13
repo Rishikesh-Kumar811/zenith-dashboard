@@ -22,7 +22,11 @@ A zero-dependency glassmorphism dashboard featuring a high-precision Pomodoro ti
 
 </div>
 
+<br/>
+
 ---
+
+<br/>
 
 ## 🛠️ Tech Stack
 
@@ -30,7 +34,11 @@ A zero-dependency glassmorphism dashboard featuring a high-precision Pomodoro ti
   <img src="https://skillicons.dev/icons?i=html,css,js" alt="Tech Stack" />
 </p>
 
+<br/>
+
 ---
+
+<br/>
 
 ## ✨ Features
 
@@ -42,13 +50,21 @@ A zero-dependency glassmorphism dashboard featuring a high-precision Pomodoro ti
 - 📤 **Native Web Share API** — OS-level share sheet for exporting productivity data
 - 🌗 **Glassmorphism Theme Toggle** — Smooth dark/light transition via `data-theme` attribute with LocalStorage persistence
 
+<br/>
+
 ---
+
+<br/>
 
 ## 🏗️ Architecture
 
 > Zero-dependency Vanilla JS architecture with event delegation pattern. Modular helper functions (`initListManager`, `toggleSubmitButton`, `fetchData`) and animated CSS mesh background.
 
+<br/>
+
 ---
+
+<br/>
 
 ## 🚀 Quick Start
 
@@ -59,6 +75,8 @@ git clone https://github.com/Rishikesh-Kumar811/zenith-dashboard.git
 # Open in browser
 cd zenith-dashboard && open index.html
 ```
+
+<br/>
 
 ---
 
