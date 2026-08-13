@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A premium productivity dashboard with a modern Pomodoro timer and task manager.">
+    <meta property="og:title" content="Productive - Modern Dashboard">
+    <meta property="og:description" content="Manage your tasks and focus time with this premium dashboard.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+    <title>Productive | Focus Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-mesh">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+    
+    <header class="app-header">
+        <div class="logo">Productive</div>
+        <button type="button" id="theme-toggle" aria-label="Toggle dark and light theme">
+            <svg class="icon-sun" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            <svg class="icon-moon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+    </header>
+
+    <main class="dashboard-grid">
+        <section class="widget greeting-widget">
+            <div class="greeting-content">
+                <h1 id="greeting">Good Morning</h1>
+                <div class="date-time-container">
+                    <time id="current-date">Loading date...</time>
+                    <time id="current-time">00:00:00</time>
+                </div>
+            </div>
+            
+            <div class="widget weather-widget glass-panel">
+                <div id="weather-display" class="weather-content" aria-live="polite">
+                    <p>Loading weather...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="widget timer-widget glass-panel">
+            <h2>Focus Timer</h2>
+            <div class="timer-modes">
+                <button type="button" class="mode-btn active" data-mode="pomodoro">Pomodoro</button>
+                <button type="button" class="mode-btn" data-mode="shortBreak">Short Break</button>
+                <button type="button" class="mode-btn" data-mode="longBreak">Long Break</button>
+            </div>
+            <div class="timer-display" aria-live="polite">
+                <span id="minutes">25</span>:<span id="seconds">00</span>
+            </div>
+            <div class="timer-controls">
+                <button type="button" id="btn-start" class="btn primary">Start</button>
+                <button type="button" id="btn-pause" class="btn secondary">Pause</button>
+                <button type="button" id="btn-reset" class="btn danger">Reset</button>
+            </div>
+        </section>
+
+        <section class="widget tasks-widget glass-panel">
+            <h2>Priority Tasks</h2>
+            <form id="task-form" class="task-input-group" novalidate>
+                <input type="text" id="task-input" placeholder="What needs to be done?" required aria-label="New task description" enterkeyhint="done" autocomplete="off" spellcheck="true" inputmode="text" autocorrect="off">
+                <button type="submit" class="btn primary" aria-label="Add task">Add</button>
+            </form>
+            <ul id="task-list" class="task-list" role="list" aria-live="polite">
+            </ul>
+        </section>
+
+        <section class="widget goals-widget glass-panel">
+            <h2>Daily Goals</h2>
+            <form id="goal-form" class="task-input-group" novalidate>
+                <input type="text" id="goal-input" placeholder="Set a top priority..." required aria-label="New goal description" enterkeyhint="done" autocomplete="off" spellcheck="true" inputmode="text" autocorrect="off">
+                <button type="submit" class="btn primary" aria-label="Add goal">Add</button>
+            </form>
+            <ul id="goal-list" class="task-list" role="list" aria-live="polite">
+            </ul>
+        </section>
+
+        <section class="widget planner-widget glass-panel">
+            <h2>Daily Planner</h2>
+            <div class="planner-container">
+                <div id="planner-edit-view">
+                    <textarea id="planner-input" placeholder="9:00 AM - Deep Work&#10;11:00 AM - Team Meeting&#10;1:00 PM - Lunch break" aria-label="Daily Planner" spellcheck="true"></textarea>
+                    <div class="planner-actions">
+                        <button type="button" id="btn-save-planner" class="btn primary planner-save-btn">Save Schedule</button>
+                        <button type="button" id="btn-clear-planner" class="btn secondary">Clear</button>
+                    </div>
+                </div>
+                
+                <div id="planner-display-view" class="hidden">
+                    <div id="planner-display-content" class="planner-text-content"></div>
+                    <div class="planner-actions">
+                        <button type="button" id="btn-edit-planner" class="btn secondary">Edit Schedule</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="widget quote-widget glass-panel">
+            <blockquote id="quote-display" aria-live="polite">
+                <p>Loading quote...</p>
+                <footer id="quote-author"></footer>
+            </blockquote>
+        </section>
+    </main>
+
+    <dialog id="share-dialog" class="glass-panel">
+        <h2>Share Your Progress</h2>
+        <p>You completed a focus session!</p>
+        <button type="button" id="btn-share" class="btn primary">Share</button>
+        <button type="button" id="btn-close-dialog" class="btn secondary">Close</button>
+    </dialog>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
