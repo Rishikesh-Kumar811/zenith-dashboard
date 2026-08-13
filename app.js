@@ -342,13 +342,54 @@ async function fetchData(url, onSuccess, onFail) {
 
 const weatherDisplay = document.getElementById('weather-display');
 if (weatherDisplay) {
-    const updateWeather = (lat, lon) => {
-        fetchData(
-            `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`,
-            (data) => weatherDisplay.textContent = `🌡️ ${data.current_weather.temperature}°C`,
-            () => weatherDisplay.textContent = `Could not load weather`
-        );
+    const weatherCodeMap = {
+        0: { icon: '☀️', text: 'Clear' },
+        1: { icon: '🌤️', text: 'Mostly Clear' },
+        2: { icon: '⛅', text: 'Partly Cloudy' },
+        3: { icon: '☁️', text: 'Overcast' },
+        45: { icon: '🌫️', text: 'Fog' },
+        48: { icon: '🌫️', text: 'Freezing Fog' },
+        51: { icon: '🌧️', text: 'Light Drizzle' },
+        53: { icon: '🌧️', text: 'Drizzle' },
+        55: { icon: '🌧️', text: 'Heavy Drizzle' },
+        61: { icon: '🌦️', text: 'Light Rain' },
+        63: { icon: '🌧️', text: 'Rain' },
+        65: { icon: '🌧️', text: 'Heavy Rain' },
+        71: { icon: '🌨️', text: 'Light Snow' },
+        73: { icon: '❄️', text: 'Snow' },
+        75: { icon: '❄️', text: 'Heavy Snow' },
+        95: { icon: '⛈️', text: 'Thunderstorm' },
+        96: { icon: '⛈️', text: 'Hail' },
+        99: { icon: '⛈️', text: 'Heavy Hail' }
     };
+
+    const updateWeather = async (lat, lon) => {
+        try {
+            const [wRes, geoRes] = await Promise.all([
+                fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`),
+                fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`)
+            ]);
+            
+            const wData = await wRes.json();
+            const geoData = await geoRes.json();
+            
+            const temp = Math.round(wData.current_weather.temperature);
+            const code = wData.current_weather.weathercode;
+            const info = weatherCodeMap[code] || { icon: '🌡️', text: 'Unknown' };
+            const city = geoData.city || geoData.locality || geoData.principalSubdivision || "Local";
+            
+            weatherDisplay.innerHTML = `
+                <div class="weather-icon-modern">${info.icon}</div>
+                <div class="weather-details-modern">
+                    <div class="weather-temp-modern">${temp}°C</div>
+                    <div class="weather-desc-modern">${info.text} &bull; ${city}</div>
+                </div>
+            `;
+        } catch (e) {
+            weatherDisplay.innerHTML = `<p style="font-size: 0.9rem; color: var(--text-secondary);">Weather unavailable</p>`;
+        }
+    };
+    
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
             pos => updateWeather(pos.coords.latitude, pos.coords.longitude),

@@ -585,8 +585,31 @@ dialog::backdrop {
     font-weight: 500;
 }
 
-.weather-icon {
-    font-size: 1.8rem;
+.weather-icon-modern {
+    font-size: 2.2rem;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.weather-details-modern {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.weather-temp-modern {
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-primary);
+}
+
+.weather-desc-modern {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-top: 0.15rem;
 }
 
 .weather-widget {
