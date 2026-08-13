@@ -22,8 +22,6 @@ A zero-dependency glassmorphism dashboard featuring a high-precision Pomodoro ti
 
 </div>
 
-<br/>
-
 <h2 align="center">🛠️ Tech Stack</h2>
 
 <p align="center">
@@ -34,13 +32,15 @@ A zero-dependency glassmorphism dashboard featuring a high-precision Pomodoro ti
 
 <h2 align="center">✨ Features</h2>
 
-- ⏱️ **High-Precision Pomodoro Timer** — `requestAnimationFrame`-powered countdown with 3 modes (25m / 5m / 15m)
-- 🌤️ **Live Geolocation Weather** — Real-time temperature via Open-Meteo API with `Intl.DateTimeFormat` clock
-- 📋 **Multi-List Task Manager** — Reusable `initListManager` for tasks & daily goals with animated check-off transitions
-- 📅 **Interactive Daily Planner** — Editable schedule panel with live text preview/edit toggle
-- 🔊 **Web Audio API Alerts** — Synthetic sine-wave beep notification when timer completes
-- 📤 **Native Web Share API** — OS-level share sheet for exporting productivity data
-- 🌗 **Glassmorphism Theme Toggle** — Smooth dark/light transition via `data-theme` attribute with LocalStorage persistence
+| 🎯 Core Feature | ✨ Technical Implementation |
+| :--- | :--- |
+| ⏱️ **High-Precision Pomodoro Timer** | `requestAnimationFrame`-powered countdown with 3 modes (25m / 5m / 15m) |
+| 🌤️ **Live Geolocation Weather** | Real-time temperature via Open-Meteo API with `Intl.DateTimeFormat` clock |
+| 📋 **Multi-List Task Manager** | Reusable `initListManager` for tasks & daily goals with animated check-off transitions |
+| 📅 **Interactive Daily Planner** | Editable schedule panel with live text preview/edit toggle |
+| 🔊 **Web Audio API Alerts** | Synthetic sine-wave beep notification when timer completes |
+| 📤 **Native Web Share API** | OS-level share sheet for exporting productivity data |
+| 🌗 **Glassmorphism Theme Toggle** | Smooth dark/light transition via `data-theme` attribute with LocalStorage persistence |
 
 <br/>
 
