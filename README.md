@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://img.shields.io/badge/Productivity_Dashboard-4f46e5?style=flat&logo=appveyor&logoColor=white" height="80" alt="Banner Badge" />
+  <img src="https://img.shields.io/badge/Productivity_Dashboard-4f46e5?style=flat&logo=appveyor&logoColor=white" height="65" alt="Banner Badge" />
   
   <br />
   <br />
@@ -10,9 +10,9 @@
   
   <br />
 
-  <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white" height="40" />
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white" height="40" />
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black" height="40" />
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white" height="35" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white" height="35" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black" height="35" />
   
 </div>
 
@@ -56,5 +56,5 @@ This dashboard was built with a strict **"UX-first"** approach. It avoids clich√
 
 <div align="center">
   <i>Designed with focus and precision.</i> <br/>
-  <img src="https://img.shields.io/badge/Built_with-Love-ff69b4?style=flat" />
+  <img src="https://img.shields.io/badge/Built_with-Love-ff69b4?style=flat" height="30" />
 </div>
