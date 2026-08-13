@@ -24,7 +24,7 @@ A zero-dependency glassmorphism dashboard featuring a high-precision Pomodoro ti
 
 <br/>
 
-<h3 align="center">🛠️ Tech Stack</h3>
+<h2 align="center">🛠️ Tech Stack</h2>
 
 <p align="center">
   <img src="https://skillicons.dev/icons?i=html,css,js" alt="Tech Stack" />
@@ -46,13 +46,13 @@ A zero-dependency glassmorphism dashboard featuring a high-precision Pomodoro ti
 
 <br/>
 
-<h3 align="center">🏗️ Architecture</h3>
+<h2 align="center">🏗️ Architecture</h2>
 
 > Zero-dependency Vanilla JS architecture with event delegation pattern. Modular helper functions (`initListManager`, `toggleSubmitButton`, `fetchData`) and animated CSS mesh background.
 
 <br/>
 
-<h3 align="center">🚀 Quick Start</h3>
+<h2 align="center">🚀 Quick Start</h2>
 
 ```bash
 # Clone the repository
