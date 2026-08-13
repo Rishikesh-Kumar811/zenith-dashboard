@@ -1,60 +1,71 @@
 <div align="center">
-  <img src="https://badgen.net/badge/-/Productivity%20Dashboard/4f46e5?scale=2.5&label=" alt="Banner Badge" />
-  
-  <br />
-  <br />
 
-  # 🌟 Premium Productivity Dashboard
-  **Focus. Manage. Achieve.** <br/>
-  A meticulously crafted, glassmorphism-inspired dashboard for your daily goals.
-  
-  <br />
+<br/>
 
-  <img src="https://badgen.net/badge/-/HTML5?icon=html5&color=E34F26&scale=1.5&label=" /> &nbsp;
-  <img src="https://badgen.net/badge/-/CSS3?icon=css3&color=1572B6&scale=1.5&label=" /> &nbsp;
-  <img src="https://badgen.net/badge/-/JavaScript?icon=javascript&color=F7DF1E&scale=1.5&label=" />
-  
+# Zenith Dashboard
+
+### Productivity Dashboard with Live Weather & Pomodoro Timer
+
+<br/>
+
+A zero-dependency glassmorphism dashboard featuring a high-precision Pomodoro timer, live geolocation weather, task & goal manager, daily planner, and Web Audio API alerts.
+
+<br/>
+
+<p align="center">
+  <a href="https://zenith-dashboard-olive.vercel.app"><img src="https://img.shields.io/badge/▶_LIVE_DEMO-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" /></a>&nbsp;
+  <a href="https://github.com/Rishikesh-Kumar811/zenith-dashboard/issues"><img src="https://img.shields.io/badge/🐛_REPORT_BUG-FF4444?style=for-the-badge" alt="Report Bug" /></a>&nbsp;
+  <a href="https://github.com/Rishikesh-Kumar811/zenith-dashboard/issues"><img src="https://img.shields.io/badge/✨_REQUEST_FEATURE-8B5CF6?style=for-the-badge" alt="Request Feature" /></a>
+</p>
+
 </div>
 
 ---
 
-## 🎨 Aesthetic & UX First
-This dashboard was built with a strict **"UX-first"** approach. It avoids cliché design tropes in favor of:
-- **Glassmorphism Panels:** Semi-transparent frosted glass elements over an organic, animated mesh gradient background.
-- **Micro-Interactions:** Smooth, fluid transitions and subtle hover effects (`transform`, `border-radius`, and `box-shadow`) that make the interface feel alive.
-- **Fluid Typography:** Scales gracefully across all devices using CSS `clamp()`.
+## 🛠️ Tech Stack
 
-## ✨ Core Features
-*   ⏱️ **Advanced Pomodoro Timer:** High-performance, `requestAnimationFrame`-powered timer that syncs flawlessly with your screen's refresh rate. (No more skipped seconds!)
-*   ✅ **Priority Task Manager:** Add, toggle, and delete tasks with smooth `transitionend` animations. 
-*   🎯 **Daily Goals:** Separate your immediate tasks from your top-level daily ambitions.
-*   📅 **Live Weather & Date:** Geolocation-powered weather updates and real-time clock syncing.
-*   🌓 **Dark & Light Mode:** A beautifully animated toggle to switch between a deep, immersive dark theme and a clean, refreshing light theme.
-*   📱 **Fully Responsive:** Meticulously engineered to look perfect on devices as small as `320px` (iPhone SE), with intelligent padding and flex-wrapping.
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=html,css,js" alt="Tech Stack" />
+</p>
 
-## 🚀 Installation & Usage
+---
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/productivity-dashboard.git
-   ```
+## ✨ Features
 
-2. **Navigate to the directory:**
-   ```bash
-   cd productivity-dashboard
-   ```
+- ⏱️ **High-Precision Pomodoro Timer** — `requestAnimationFrame`-powered countdown with 3 modes (25m / 5m / 15m)
+- 🌤️ **Live Geolocation Weather** — Real-time temperature via Open-Meteo API with `Intl.DateTimeFormat` clock
+- 📋 **Multi-List Task Manager** — Reusable `initListManager` for tasks & daily goals with animated check-off transitions
+- 📅 **Interactive Daily Planner** — Editable schedule panel with live text preview/edit toggle
+- 🔊 **Web Audio API Alerts** — Synthetic sine-wave beep notification when timer completes
+- 📤 **Native Web Share API** — OS-level share sheet for exporting productivity data
+- 🌗 **Glassmorphism Theme Toggle** — Smooth dark/light transition via `data-theme` attribute with LocalStorage persistence
 
-3. **Run Locally:**
-   Simply open `index.html` in your favorite modern browser, or use a local development server like Live Server for the best experience.
+---
 
-## 🛠️ Technical Highlights
-- **Zero Dependencies:** Built entirely with vanilla HTML, CSS, and JS. No bloated frameworks.
-- **DRY Architecture:** CSS is strictly modularized without deep nesting. JS logic relies on composition and highly reusable utility functions.
-- **Performance Optimized:** Guaranteed zero memory leaks (strict event listener cleanup), optimized DOM manipulation, and responsive image scaling.
+## 🏗️ Architecture
+
+> Zero-dependency Vanilla JS architecture with event delegation pattern. Modular helper functions (`initListManager`, `toggleSubmitButton`, `fetchData`) and animated CSS mesh background.
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/Rishikesh-Kumar811/zenith-dashboard.git
+
+# Open in browser
+cd zenith-dashboard && open index.html
+```
 
 ---
 
 <div align="center">
-  <i>Designed with focus and precision.</i> <br/>
-  <img src="https://badgen.net/badge/Built%20with/Love/ff69b4?scale=1.5" />
+
+**[⬆ Back to Top](#zenith-dashboard)**
+
+<br/>
+
+<img src="https://img.shields.io/badge/BUILT_WITH-❤️-ff69b4?style=for-the-badge" alt="Built with Love" />
+
 </div>
