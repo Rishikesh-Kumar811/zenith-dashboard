@@ -22,13 +22,17 @@ A zero-dependency glassmorphism dashboard featuring a high-precision Pomodoro ti
 
 </div>
 
-## 🛠️ Tech Stack
+<br/>
+
+<h2 align="center">🛠️ Tech Stack</h2>
 
 <p align="center">
   <img src="https://skillicons.dev/icons?i=html,css,js" alt="Tech Stack" />
 </p>
 
-## ✨ Features
+<br/>
+
+<h2 align="center">✨ Features</h2>
 
 - ⏱️ **High-Precision Pomodoro Timer** — `requestAnimationFrame`-powered countdown with 3 modes (25m / 5m / 15m)
 - 🌤️ **Live Geolocation Weather** — Real-time temperature via Open-Meteo API with `Intl.DateTimeFormat` clock
@@ -38,11 +42,15 @@ A zero-dependency glassmorphism dashboard featuring a high-precision Pomodoro ti
 - 📤 **Native Web Share API** — OS-level share sheet for exporting productivity data
 - 🌗 **Glassmorphism Theme Toggle** — Smooth dark/light transition via `data-theme` attribute with LocalStorage persistence
 
-## 🏗️ Architecture
+<br/>
+
+<h2 align="center">🏗️ Architecture</h2>
 
 > Zero-dependency Vanilla JS architecture with event delegation pattern. Modular helper functions (`initListManager`, `toggleSubmitButton`, `fetchData`) and animated CSS mesh background.
 
-## 🚀 Quick Start
+<br/>
+
+<h2 align="center">🚀 Quick Start</h2>
 
 ```bash
 # Clone the repository
@@ -51,6 +59,8 @@ git clone https://github.com/Rishikesh-Kumar811/zenith-dashboard.git
 # Open in browser
 cd zenith-dashboard && open index.html
 ```
+
+<br/>
 
 <div align="center">
 
