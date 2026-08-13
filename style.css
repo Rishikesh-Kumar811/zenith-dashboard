@@ -500,6 +500,15 @@ dialog::backdrop {
     flex-direction: column;
     gap: 1rem;
     height: 100%;
+    width: 100%;
+}
+
+#planner-edit-view, #planner-display-view {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    flex-grow: 1;
 }
 
 #planner-input {
