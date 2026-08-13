@@ -13,9 +13,9 @@ A zero-dependency glassmorphism dashboard featuring a high-precision Pomodoro ti
 <br/>
 
 <p align="center">
-  <a href="https://zenith-dashboard-olive.vercel.app"><img src="https://img.shields.io/badge/▶_Live_Demo-000000?style=flat&logo=vercel&logoColor=white" alt="Live Demo" height="28" /></a>&nbsp;
-  <a href="https://github.com/Rishikesh-Kumar811/zenith-dashboard/issues"><img src="https://img.shields.io/badge/Report_Bug-e11d48?style=flat" alt="Report Bug" height="28" /></a>&nbsp;
-  <a href="https://github.com/Rishikesh-Kumar811/zenith-dashboard/issues"><img src="https://img.shields.io/badge/Request_Feature-8B5CF6?style=flat" alt="Request Feature" height="28" /></a>
+  <a href="https://zenith-dashboard-olive.vercel.app"><img src="https://img.shields.io/badge/▶_Live_Demo-000000?style=flat&logo=vercel&logoColor=white" alt="Live Demo" height="34" /></a>&nbsp;
+  <a href="https://github.com/Rishikesh-Kumar811/zenith-dashboard/issues"><img src="https://img.shields.io/badge/Report_Bug-e11d48?style=flat" alt="Report Bug" height="34" /></a>&nbsp;
+  <a href="https://github.com/Rishikesh-Kumar811/zenith-dashboard/issues"><img src="https://img.shields.io/badge/Request_Feature-8B5CF6?style=flat" alt="Request Feature" height="34" /></a>
 </p>
 
 </div>
@@ -66,6 +66,6 @@ cd zenith-dashboard && open index.html
 
 <br/>
 
-<img src="https://img.shields.io/badge/Built_with_♥-ff69b4?style=flat" alt="Built with Love" height="24" />
+<img src="https://img.shields.io/badge/Built_with_♥-ff69b4?style=flat" alt="Built with Love" height="30" />
 
 </div>
