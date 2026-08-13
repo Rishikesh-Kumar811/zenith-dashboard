@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://badgen.net/badge/Productivity/Dashboard/4f46e5?icon=appveyor&scale=2.5" alt="Banner Badge" />
+  <img src="https://badgen.net/badge/-/Productivity%20Dashboard/4f46e5?scale=2.5&label=" alt="Banner Badge" />
   
   <br />
   <br />
@@ -10,9 +10,9 @@
   
   <br />
 
-  <img src="https://badgen.net/badge/icon/HTML5?icon=html5&color=E34F26&scale=1.5" />
-  <img src="https://badgen.net/badge/icon/CSS3?icon=css3&color=1572B6&scale=1.5" />
-  <img src="https://badgen.net/badge/icon/JavaScript?icon=javascript&color=F7DF1E&scale=1.5" />
+  <img src="https://badgen.net/badge/-/HTML5?icon=html5&color=E34F26&scale=1.5&label=" /> &nbsp;
+  <img src="https://badgen.net/badge/-/CSS3?icon=css3&color=1572B6&scale=1.5&label=" /> &nbsp;
+  <img src="https://badgen.net/badge/-/JavaScript?icon=javascript&color=F7DF1E&scale=1.5&label=" />
   
 </div>
 
