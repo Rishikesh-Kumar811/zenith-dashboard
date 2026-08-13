@@ -2,7 +2,7 @@
 
 <br/>
 
-# 📊 Zenith Dashboard
+<h1>📊 Zenith Dashboard</h1>
 
 ### Productivity Dashboard with Live Weather & Pomodoro Timer
 
