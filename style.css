@@ -504,6 +504,7 @@ dialog::backdrop {
 
 #planner-input {
     flex-grow: 1;
+    width: 100%;
     min-height: 150px;
     padding: 1rem;
     border-radius: 12px;
