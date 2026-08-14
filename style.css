@@ -691,3 +691,20 @@ dialog::backdrop {
         gap: 0.5rem;
     }
 }
+
+.dashboard-grid {
+    container-type: inline-size;
+    container-name: dashboard;
+}
+
+@container dashboard (max-width: 500px) {
+    .widget {
+        padding: 1rem;
+    }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

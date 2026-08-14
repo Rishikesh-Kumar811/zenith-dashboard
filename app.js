@@ -10,6 +10,41 @@ themeToggle.addEventListener('click', () => {
     localStorage.setItem('theme', newTheme);
 });
 
+const idb = {
+    db: null,
+    async getDb() {
+        if (this.db) return this.db;
+        return new Promise((resolve, reject) => {
+            const req = indexedDB.open('ZenithDB', 1);
+            req.onupgradeneeded = e => e.target.result.createObjectStore('store');
+            req.onsuccess = e => { this.db = e.target.result; resolve(this.db); };
+            req.onerror = () => reject('IDB error');
+        });
+    },
+    async get(key) {
+        const db = await this.getDb();
+        return new Promise(resolve => {
+            const req = db.transaction('store', 'readonly').objectStore('store').get(key);
+            req.onsuccess = () => resolve(req.result);
+            req.onerror = () => resolve(null);
+        });
+    },
+    async set(key, val) {
+        const db = await this.getDb();
+        return new Promise(resolve => {
+            const req = db.transaction('store', 'readwrite').objectStore('store').put(val, key);
+            req.onsuccess = () => resolve();
+        });
+    },
+    async remove(key) {
+        const db = await this.getDb();
+        return new Promise(resolve => {
+            const req = db.transaction('store', 'readwrite').objectStore('store').delete(key);
+            req.onsuccess = () => resolve();
+        });
+    }
+};
+
 const timeEl = document.getElementById('current-time');
 const dateEl = document.getElementById('current-date');
 const dateFormatter = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
@@ -67,39 +102,65 @@ function updateDisplay() {
     if(secEl) secEl.textContent = s;
 }
 
-function tick() {
-    if (!isRunning) return;
-    const remainingMs = targetEndTime - performance.now();
-    if (remainingMs <= 0) {
-        isRunning = false;
-        timeLeft = 0;
-        updateDisplay();
-        playBeep();
-        if(shareDialog) shareDialog.showModal();
-        return;
+let worker = null;
+const workerCode = `
+    let timerId = null;
+    self.onmessage = function(e) {
+        if (e.data.command === 'start') {
+            const target = Date.now() + e.data.timeLeft * 1000;
+            if(timerId) clearInterval(timerId);
+            timerId = setInterval(() => {
+                const remaining = Math.max(0, target - Date.now());
+                self.postMessage({ type: 'tick', remainingMs: remaining });
+                if (remaining <= 0) clearInterval(timerId);
+            }, 200);
+        } else if (e.data.command === 'pause') {
+            if (timerId) clearInterval(timerId);
+        }
+    };
+`;
+const blob = new Blob([workerCode], { type: 'application/javascript' });
+worker = new Worker(URL.createObjectURL(blob));
+
+worker.onmessage = function(e) {
+    if (e.data.type === 'tick') {
+        const remainingMs = e.data.remainingMs;
+        timeLeft = Math.ceil(remainingMs / 1000);
+        
+        if (document.startViewTransition && document.visibilityState === 'visible') {
+            document.startViewTransition(() => updateDisplay());
+        } else {
+            updateDisplay();
+        }
+
+        if (remainingMs <= 0) {
+            isRunning = false;
+            playBeep();
+            if(shareDialog) shareDialog.showModal();
+        }
     }
-    timeLeft = Math.ceil(remainingMs / 1000);
-    updateDisplay();
-    timerRaf = requestAnimationFrame(tick);
-}
+};
 
 function startTimer() {
     if (isRunning) return;
     ensureAudio();
     isRunning = true;
-    targetEndTime = performance.now() + (timeLeft * 1000);
-    timerRaf = requestAnimationFrame(tick);
+    worker.postMessage({ command: 'start', timeLeft: timeLeft });
 }
 
 function pauseTimer() {
     isRunning = false;
-    cancelAnimationFrame(timerRaf);
+    worker.postMessage({ command: 'pause' });
 }
 
 function resetTimer() {
     pauseTimer();
     timeLeft = currentModeDuration;
-    updateDisplay();
+    if (document.startViewTransition) {
+        document.startViewTransition(() => updateDisplay());
+    } else {
+        updateDisplay();
+    }
 }
 
 function setMode(mode) {
@@ -192,22 +253,18 @@ function toggleSubmitButton(inputEl, btnEl) {
     }
 }
 
-function initListManager(storageKey, formId, inputId, listId) {
+async function initListManager(storageKey, formId, inputId, listId) {
     const form = document.getElementById(formId);
     const input = document.getElementById(inputId);
     const list = document.getElementById(listId);
     if (!form || !input || !list) return;
     
     const submitBtn = form.querySelector('button[type="submit"]');
-    let items = [];
-    try {
-        items = JSON.parse(localStorage.getItem(storageKey)) || [];
-    } catch (e) {}
+    let items = (await idb.get(storageKey)) || [];
     
     toggleSubmitButton(input, submitBtn);
     
-    function saveAndRender() {
-        localStorage.setItem(storageKey, JSON.stringify(items));
+    function renderList() {
         list.innerHTML = '';
         items.forEach((item, i) => {
             const li = document.createElement('li');
@@ -234,38 +291,42 @@ function initListManager(storageKey, formId, inputId, listId) {
             list.appendChild(li);
         });
     }
+
+    async function saveAndRender() {
+        await idb.set(storageKey, items);
+        if (document.startViewTransition && document.visibilityState === 'visible') {
+            document.startViewTransition(() => renderList());
+        } else {
+            renderList();
+        }
+    }
     
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const text = input.value.trim();
         if (text) {
             items.push({ text, completed: false });
-            saveAndRender();
+            await saveAndRender();
             showToast(`Saved: ${text}`);
             input.value = '';
             if(submitBtn) submitBtn.disabled = true;
         }
     });
     
-    list.addEventListener('click', (e) => {
+    list.addEventListener('click', async (e) => {
         if (e.target.classList.contains('task-checkbox')) {
             items[e.target.dataset.index].completed = e.target.checked;
-            saveAndRender();
+            await saveAndRender();
         }
-        const btn = e.target.closest('.btn-delete');
-        if (btn) {
-            const idx = btn.dataset.index;
-            const li = btn.closest('.task-item');
-            if (li.classList.contains('removing')) return;
-            li.classList.add('removing');
-            li.addEventListener('transitionend', () => {
-                items.splice(idx, 1);
-                saveAndRender();
-            }, { once: true });
+        
+        const deleteBtn = e.target.closest('.btn-delete');
+        if (deleteBtn) {
+            items.splice(deleteBtn.dataset.index, 1);
+            await saveAndRender();
         }
     });
     
-    saveAndRender();
+    renderList();
 }
 
 initListManager('tasks', 'task-form', 'task-input', 'task-list');
@@ -280,54 +341,71 @@ const plannerDisplayView = document.getElementById('planner-display-view');
 const plannerDisplayContent = document.getElementById('planner-display-content');
 
 if(plannerInput && btnSavePlanner && plannerEditView && plannerDisplayView) {
-    const savedPlanner = localStorage.getItem('planner') || '';
-    plannerInput.value = savedPlanner;
-    
-    if (savedPlanner.trim() !== '') {
-        plannerDisplayContent.textContent = savedPlanner;
-        plannerEditView.classList.add('hidden');
-        plannerDisplayView.classList.remove('hidden');
-    }
-    
-    toggleSubmitButton(plannerInput, btnSavePlanner);
-    if (btnClearPlanner) {
-        toggleSubmitButton(plannerInput, btnClearPlanner);
+    (async () => {
+        const savedPlanner = (await idb.get('planner')) || '';
+        plannerInput.value = savedPlanner;
         
-        btnClearPlanner.addEventListener('click', () => {
-            plannerInput.value = '';
-            localStorage.removeItem('planner');
-            btnSavePlanner.disabled = true;
-            btnClearPlanner.disabled = true;
-        });
-    }
-
-    btnSavePlanner.addEventListener('click', () => {
-        const val = plannerInput.value.trim();
-        localStorage.setItem('planner', val);
-        
-        if(val !== '') {
-            plannerDisplayContent.textContent = val;
+        if (savedPlanner.trim() !== '') {
+            plannerDisplayContent.textContent = savedPlanner;
             plannerEditView.classList.add('hidden');
             plannerDisplayView.classList.remove('hidden');
-            showToast(`Saved Planner Schedule!`);
         }
         
-        const originalText = 'Save Schedule';
-        btnSavePlanner.textContent = 'Saved!';
-        btnSavePlanner.classList.add('success');
-        setTimeout(() => { 
-            btnSavePlanner.textContent = originalText; 
-            btnSavePlanner.classList.remove('success');
-        }, 2000);
-    });
+        toggleSubmitButton(plannerInput, btnSavePlanner);
+        if (btnClearPlanner) {
+            toggleSubmitButton(plannerInput, btnClearPlanner);
+            
+            btnClearPlanner.addEventListener('click', async () => {
+                plannerInput.value = '';
+                await idb.remove('planner');
+                btnSavePlanner.disabled = true;
+                btnClearPlanner.disabled = true;
+            });
+        }
 
-    if (btnEditPlanner) {
-        btnEditPlanner.addEventListener('click', () => {
-            plannerDisplayView.classList.add('hidden');
-            plannerEditView.classList.remove('hidden');
-            plannerInput.focus();
+        btnSavePlanner.addEventListener('click', async () => {
+            const val = plannerInput.value.trim();
+            await idb.set('planner', val);
+            
+            if(val !== '') {
+                if (document.startViewTransition && document.visibilityState === 'visible') {
+                    document.startViewTransition(() => {
+                        plannerDisplayContent.textContent = val;
+                        plannerEditView.classList.add('hidden');
+                        plannerDisplayView.classList.remove('hidden');
+                    });
+                } else {
+                    plannerDisplayContent.textContent = val;
+                    plannerEditView.classList.add('hidden');
+                    plannerDisplayView.classList.remove('hidden');
+                }
+                showToast(`Saved Planner Schedule!`);
+            }
+            
+            const originalText = 'Save Schedule';
+            btnSavePlanner.textContent = 'Saved!';
+            btnSavePlanner.classList.add('success');
+            setTimeout(() => { 
+                btnSavePlanner.textContent = originalText; 
+                btnSavePlanner.classList.remove('success');
+            }, 2000);
         });
-    }
+
+        if (btnEditPlanner) {
+            btnEditPlanner.addEventListener('click', () => {
+                if (document.startViewTransition && document.visibilityState === 'visible') {
+                    document.startViewTransition(() => {
+                        plannerDisplayView.classList.add('hidden');
+                        plannerEditView.classList.remove('hidden');
+                    });
+                } else {
+                    plannerDisplayView.classList.add('hidden');
+                    plannerEditView.classList.remove('hidden');
+                }
+                setTimeout(() => plannerInput.focus(), 50);
+            });
+        }
+    })();
 }
 
 async function fetchData(url, onSuccess, onFail) {
